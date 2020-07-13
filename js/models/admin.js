@@ -24,6 +24,17 @@ class Ordenes{
                     .then(function() {
                       $('#modal001').modal('close');
                         Materialize.toast('Datos agregados con éxito', 4000)
+			  var codigo = document.getElementById("codigoarticulo");
+                            var descripcion = document.getElementById("descripcionarticulo");
+                            var precio = document.getElementById("precioarticulo");
+                            var existencia = document.getElementById("existenciaarticulo");
+                            
+                            codigo.value =""
+                            descripcion.value =""
+                            precio.value =""
+                            existencia.value =""
+  			    $('#veinte').empty();
+         		    $('#treinta').empty();		      
                                            
                     })
                     .catch(function(error) {
