@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+    <title>Distribuidor Campesino</title>  
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-auth.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-firestore.js"></script>
+    <script>      
+      // Initialize Firebase
+      var firebaseConfig = {
+    apiKey: "AIzaSyCJhyv45N6HqG1IAiuASaJ3K2dXW2HVck0",
+    authDomain: "campesino-8c8f1.firebaseapp.com",
+    databaseURL: "https://campesino-8c8f1.firebaseio.com",
+    projectId: "campesino-8c8f1",
+    storageBucket: "campesino-8c8f1.appspot.com",
+    messagingSenderId: "894984825322",
+    appId: "1:894984825322:web:ee12aab9e6bac33864ea93",
+    measurementId: "G-MDTJ6LFW2V"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+    </script>
+  </head>
+  <body style="font-size:12px;">
+       <script type="text/javascript" src="js/jquery.js"></script>
+       <script src="js/admin.js"></script>
+       <script src="js/logout.js"></script>
+       <script src="js/models/admin.js"></script>
+       <script src="js/controller/admincontroller.js"></script> 
+    <header>
+        <div class="navbar-fixed ">
+
+            <ul id="dropdown1" class="dropdown-content">
+                       <li id="usuario"><a href="perfil.php">Perfil<i class="medium right material-icons">edit</i></a> </li>
+                       <li><a onclick="cerrar()">Salir<i class="medium right material-icons">lock</i></a> </li>
+            </ul>
+
+            <nav class=" orange darken-3">
+                <div class="nav-wrapper"> 
+                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+        
+        <li><a href="collapsible.html">Cotizaciones</a></li>
+      </ul>
+
+                     <a href="#" class="brand-logo center ">DC</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                     <ul id="nav-mobile" class="right hide-on-med-and-down">
+                       <li style="font-size: 20px;">
+                        <a  id="usuario" class="dropdown-button" href="#!" data-activates="dropdown1"></a>
+                      </li>
+                     </ul>
+                </div>
+            </nav>
+        </div>
+       <!-- Move the sidenav outside of .navbar-fixed -->
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href=""> Menu</a><div class="divider"> </div></li>
+            <li><a>Nueva Orden de servicio</a></li>
+            <li><a>Ordenes de servicio</a></li>
+           <div class="divider"></div>
+           <li><a id="usr"></a></li>
+           <li disabled=true><a id="email"></a></li>
+           <li><a onclick="cerrar()">Salir</a> </li>
+        </ul>
+    </header>
+   
+ <!-- Tabs -->
+    <ul id="tabs-swipe " class="tabs   blue accent-2"  >
+       <li class="tab col s4 "><a class=" active white-text" href="#test-swipe-1">Articulos</a></li>
+       <li class="tab col s4  "><a class="white-text"  href="#test-swipe-2">Pedidos</a></li>
+       <li class="tab col s4  "><a class="white-text"  href="#test-swipe-3">Ventas</a></li>
+       <li class="tab col s4  "><a class="white-text"  href="#test-swipe-4">Cientes</a></li>
+       <li class="tab col s4  "><a class="white-text"  href="#test-swipe-5">Proveedores</a></li>
+     
+    </ul>
+    <!-- Tab 1 OS -->
+    
+    <div id="test-swipe-1" class="col s12 l12 " >    
+    <div class="row" >
+      <div class="col l9 s12"><br>
+          <h5 class="center">Articulos</h5>
+      </div>
+       <div class="col l3 s12">
+                    
+                   
+                    <div class="input-field col s12 l12">
+          <i class="material-icons prefix">search</i>
+          <input id="buscar" type="text" class="validate" >
+          <label for="buscar">Buscar</label>
+        </div>  
+                  
+                     
+
+    </div>
+    </div>
+   
+        <div class="row gray" >
+          <div class="progress" id="progr" style="display:block; padding: 0; margin: 0">
+         <div class="indeterminate green"></div>
+      </div>
+
+          <!-- Btn Modal -->
+            <div class="fixed-action-btn vertical click-to-toggle">
+    <a class="btn-floating btn-large green modal-trigger"  href="#modal001">
+      <i class="material-icons">add</i>
+    </a>
+     
+  </div>
+          <!-- <div class="fixed-action-btn horizontal" >
+            <a class="btn-floating btn-large waves-effect green modal-trigger" href="#modal1"  >
+               <i class="large material-icons">add</i>
+            </a>
+          </div>
+           Btn Modal -->
+           
+   
+             <div class="col l12 s12 z-depth-1 white" >
+         <table class="striped responsive-table " id="tablaarticulos"  >
+                                    <tr class="card" id="rem">
+                                        <th>Actualizado</th>
+                                        <th>Codigo</th>
+                                        <th>Descripción</th>
+                                        <th>Precio Compra</th>
+                                        <th>Precio Publico</th>
+                                        <th>Precio Mayoreo</th>
+                                        <th>30%</th>
+                                        <th>40%</th>
+                                        <th>Existencia</th>
+                                        <th>Modifico</th>
+                                        <th>Opciones</th>
+                                    </tr>   
+                                             
+                                </table>
+<br><br><br><br><br><br>
+            </div>
+          </div>
+    </div>
+  <!-- Tab  OS-->
+    <div id="test-swipe-2" class="col s12 ">
+       <div class="row ">
+           <h5 class="center">Pedidos</h5>
+            <div id="usuarioscontenido">
+              <div class="progress" id="progre" style="display:block; padding: 0; margin: 0">
+           <div class="indeterminate"></div>
+           </div>
+            
+              <div class="col l12 s12 z-depth-1 white" >
+         <table class="striped responsive-table " id="tablapedidos"  >
+                                    <tr class="card" id="rem">
+                                        <th>Fecha</th>
+                                        <th>Folio</th>
+                                        <th>Ciente</th>
+                                        <th>Vendedor</th>
+                                        <th>Cantidal total</th>
+                                        <th>Opciones</th>
+                                    </tr>   
+                                             
+                                </table>
+    <br><br><br><br>
+            </div>
+
+
+
+            </div>
+                 <div class="fixed-action-btn vertical click-to-toggle">
+                  <a class="btn-floating btn-large orange modal-trigger" href="#modal005">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
+            </div>
+          </div> 
+
+    </div>
+      <!-- Tab 1 OS-->
+     <!-- Tab 1 OS-->
+    <div id="test-swipe-3" class="col s12 ">
+       <div class="row ">
+          <div class=" col s8 l9" >   <h5 class="center">Ventas</h5> </div> 
+          <div class=" col s4 l3" style="padding: 0; margin: 0; ">
+          Total:
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  font-size:25px; border-bottom:0; ">
+            $
+            <spam  style="font-size: 25px"  >0.00</spam>
+          </div>
+        </div>
+ 
+          
+            <div id="usuarioscontenido">
+              <div class="progress">
+           <div class="indeterminate"></div>
+           </div>
+              
+              <div class="col l12 s12 z-depth-1 white" >
+         <table class="striped responsive-table " id="tablaventas"  >
+                                    <tr class="card" id="rem">
+                                        <th>Fecha</th>
+                                        <th>Folio</th>
+                                        <th>Cientes</th>
+                                        <th>Vendedor</th>
+                                        <th>Método de pago</th>
+                                        <th>Cantidal total</th>
+                                        <th>Opciones</th>
+                                    </tr>   
+                                             
+                                </table>
+    <br><br><br><br>
+            </div>
+
+
+
+            </div>
+
+
+
+            <div class="fixed-action-btn vertical click-to-toggle">
+    <a class="btn-floating btn-large black modal-trigger" href="#modal003">
+      <i class="material-icons">attach_money</i>
+    </a>
+  </div>
+
+
+
+
+          </div> 
+
+    </div>
+    
+  <!-- Tab  OS-->
+    <div id="test-swipe-4" class="col s12 ">
+       <div class="row ">
+           <h5 class="center">Clientes</h5>
+            <div id="usuarioscontenido">
+              <div class="progress">
+           <div class="indeterminate"></div>
+           </div>
+
+            </div>
+          </div> 
+
+    </div>
+      <!-- Tab 1 OS-->
+    <div id="test-swipe-5" class="col s12 ">
+       <div class="row ">
+           <h5 class="center">Proveedores</h5>
+            <div id="usuarioscontenido">
+              <div class="progress">
+           <div class="indeterminate"></div>
+           </div>
+
+            </div>
+          </div> 
+
+    </div>
+    
+    
+    <!-- Tabs -->
+    
+    <!-- Tabs -->    
+    <!-- Tabs -->
+
+    <!-- Modal Add OS -->
+    <div id="modal001" class="modal modal-fixed-footer">
+     <div class="progress " id="progresbar"  style="display: none;">
+       <div class="indeterminate"></div>
+       </div>
+       
+        <div class="modal-content">
+            <h5 class="center">Nuevo artículo</h5> 
+           <div class="row center oserv card" style="padding: 20px;">
+                <div class="col s12 m12 green lighten-2 center" style="padding: 20px; border-radius: 10px;">
+                               <i class="material-icons white-text center">report_problem</i><br>
+                                <span class="white-text" style="font-size: 12px"   >En esta sección podras agregar los articulos
+                                </span>
+                            </div>
+              <div class="col s12 m12 l12 ">
+                  <br>
+                  
+                   <div class="input-field col s12 l12 " style=" padding: 0; margin: 0; " >
+                      Fecha :
+                      <div class="input-field inline" style=" padding: 0; margin: 0; border-bottom:0; ">
+                        <input id="fecha" disabled type="date" class="validate" name="fecha">            
+                    </div> 
+                    </div> 
+                
+                   
+
+                    <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Codigo :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="codigo"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                    <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Descripción :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="descripcion"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                     <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Precio de compra :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="distribuidor"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                     <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Precio de publico :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="publico"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                     <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Precio de mayoreo :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="mayoreo"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                    <div class="input-field col s12 l12" style="padding: 0; margin: 0; ">
+                        30% :
+                      <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                        <input disabled  type="text"  >
+                        <label id="veinte"></label>
+                      </div>
+                    </div>
+
+                    <div class="input-field col s12 l12" style="padding: 0; margin: 0; ">
+                        40% :
+                      <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                        <input disabled  type="text"   >
+                        <label id="treinta"></label>
+                      </div>
+                    </div>
+
+                  <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Existencia :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="existencia"  type="number" class="validate">
+                     
+                    </div>
+                    </div>
+
+                  <br><br>
+
+             </div>
+            
+           
+             
+          
+           </div>
+ 
+ 
+           
+        </div>
+        <div class="modal-footer">
+          <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a><button id="btnaddordendeservicio" type="button" class=" waves-effect waves-green btn-flat">Guardar</button> 
+        </div>
+    </div>
+    <!-- Modal Add OS -->
+        <!-- Modal Add 002 -->
+    
+       <!-- Modal Mod   002 -->
+
+         <!-- Modal Add 003 -->
+    <div id="modal003" class="modal ">
+     <div class="progress " id="progresbar"  style="display: none;">
+       <div class="indeterminate"></div>
+       </div>
+       
+        <div class="modal-content">
+           <h5>Punto de venta</h5><br>
+           <div class="row" >
+            <div class="input-field col s12 l2" style="   padding: 0; margin: 0; ">
+              Codigo :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+             <input placeholder="Código" id="buscararticulo" type="text" class="validate">
+           
+          </div>
+        
+
+        </div>
+
+
+          <div class="input-field col s12 l1" style="   padding: 0; margin: 0; ">
+       
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+             <a class="waves-effect waves-light btn-large"  id="btnbuscararticulo"  ><i class="material-icons">search</i></a>
+          </div>
+        
+</div>
+        </div>
+           <div class="row center oserv card" style="background-color: #e0f2f1; padding:20px;  " >
+                 
+             
+
+                
+
+       <div class="input-field col s12 l3" style=" padding: 0; margin: 0; " >
+          Fecha :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-bottom:0; ">
+            <input id="fechaActual" disabled type="date" class="validate">
+ 
+        </div> 
+        </div> 
+
+
+        <div class="input-field col s12 l3" style="   padding: 0; margin: 0; ">
+          Folio :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input  disabled type="text" class="validate">
+           
+          </div>
+        
+
+        </div>
+
+
+        <div class="input-field col s12 l3" style="   padding: 0; margin: 0; ">
+          Codigo :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input id="codigoarticulo" disabled type="text" class="validate">
+           
+          </div>
+        
+
+        </div>
+
+        <div class="input-field col s12 l3" style="  padding: 0; margin: 0;">
+          Descrip.:
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input disabled id="descripcionarticulo" type="text" class="validate">
+           
+          </div>
+        </div>
+
+        <div class="input-field col s12 l3" style="padding: 0; margin: 0;  ">
+          Precio :
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input  disabled type="text" id="precioarticulo" class="validate">
+           
+          </div>
+        </div>
+
+         
+        <div class="input-field col s12 l3" style="padding: 0; margin: 0; ">
+          Existencia :
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input disabled  type="text" id="existenciaarticulo" class="validate">
+          </div>
+        </div>
+
+          <div class="input-field col s12 l3" style="padding: 0; margin: 0; ">
+          Cantidad :
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px; background-color: #def; border-bottom:0; ">
+            <input id="cantidadarticulo" type="text" class="validate">
+          </div>
+        </div>
+
+        <div class="input-field col s12 l3" style="padding: 0; margin: 0; ">
+          Total:
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input disabled  type="text" class="validate"  >
+            <label id="totalarticulo"></label>
+          </div>
+        </div>
+
+        
+<a class="btn-floating halfway-fab waves-effect waves-light red" onclick="guardar();"><i class="material-icons">add</i></a>
+        
+
+
+ 
+
+<br>
+          
+            
+           
+             
+          
+           </div>
+ 
+ 
+           <div class="input-field col s12 l12" style="padding: 0; margin: 0;  border-top-width: 10px;">
+            <div class="row"> 
+        <div class="input-field col s6 l6" >  Contenido:</div> 
+          <div class="input-field col s6 l6" style="padding: 0; margin: 0; ">
+          Total:
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  font-size: 20px; border-bottom:0; ">
+            $
+            <spam id="totalventa" style="font-size: 20px"  >0.00</spam>
+          </div>
+        </div>
+</div>  
+        <a href="" class="modal-action modal-close waves-effect waves-green btn right">Vender</a><br>
+          <br><br> <div id="busqueda" class="col l12 s12" >
+                      <table class="striped responsive-table "   >
+                                  <tbody id="tablaarticulosdos">
+                          
+                        
+                                    <tr class="card" id="rem" style="font-size:10px ">
+                                        <th>Codigo</th>
+                                        <th>Descripción</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Publico</th>
+                                      
+                                         <th>Total</th>
+                                        <th>Opcion</th>
+                                       
+                                    </tr>   
+                                    </tbody>         
+                                </table>
+
+                  </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+
+         
+        </div>
+        <br><br><br>
+    </div>
+       <!-- Modal Mod   003 -->
+<!-- Modal Mod   004 editar -->
+   <div id="modal004" class="modal modal-fixed-footer">
+     <div class="progress " id="progresbar"  style="display: none;">
+       <div class="indeterminate"></div>
+       </div>
+       
+        <div class="modal-content">
+            <h5 class="center">Editar artículo</h5> 
+           <div class="row center oserv card" style="padding: 20px;">
+                <div class="col s12 m12 green lighten-2 center" style="padding: 20px; border-radius: 10px;">
+                               <i class="material-icons white-text center">report_problem</i><br>
+                                <span class="white-text" style="font-size: 12px"   >En esta sección podras agregar los articulos
+                                </span>
+                            </div>
+              <div class="col s12 m12 l12 ">
+                  <br>
+                  
+                   <div class="input-field col s12 l12 " style=" padding: 0; margin: 0; " >
+                      Fecha :
+                      <div class="input-field inline" style=" padding: 0; margin: 0; border-bottom:0; ">
+                        <input id="efecha" disabled type="date" class="validate" name="fecha">            
+                    </div> 
+                    </div> 
+                
+                   
+
+                    <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Codigo :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="ecodigo"  disabled type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                    <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Descripción :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="edescripcion"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                     <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Precio de compra :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="edistribuidor"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                     <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Precio de publico :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="epublico"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                     <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Precio de mayoreo :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="emayoreo"  type="text" class="validate">
+                     
+                    </div>
+                    </div>
+
+                    <div class="input-field col s12 l12" style="padding: 0; margin: 0; ">
+                        30% :
+                      <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                        <input disabled  type="text"  >
+                        <label id="eveinte"></label>
+                      </div>
+                    </div>
+
+                    <div class="input-field col s12 l12" style="padding: 0; margin: 0; ">
+                        40% :
+                      <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                        <input disabled  type="text"   >
+                        <label id="etreinta"></label>
+                      </div>
+                    </div>
+
+                  <div class="input-field col s12 l12" style="   padding: 0; margin: 0; ">
+                    Existencia :
+                    <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+                      <input id="eexistencia"  type="number" class="validate">
+                     
+                    </div>
+                    </div>
+
+                  <br><br>
+
+             </div>
+            
+           
+             
+          
+           </div>
+ 
+ 
+           
+        </div>
+        <div class="modal-footer">
+          <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a><button id="btneditordendeservicio" type="button" class=" waves-effect waves-green btn-flat">Guardar</button> 
+        </div>
+    </div>
+
+<!-- Modal Mod   005 pedido -->
+ <div id="modal005" class="modal ">
+     <div class="progress " id="progresbar"  style="display: none;">
+       <div class="indeterminate"></div>
+       </div>
+       
+        <div class="modal-content">
+           <h5>Realizar pedido</h5><br>
+           <div class="row" >
+            <div class="input-field col s12 l2" style="   padding: 0; margin: 0; ">
+              Codigo :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+             <input placeholder="Código" id="buscararticulopedido" type="text" class="validate">
+           
+          </div>
+        
+
+        </div>
+
+
+          <div class="input-field col s12 l1" style="   padding: 0; margin: 0; ">
+       
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+             <a class="waves-effect waves-light btn-large"  id="btnbuscararticulopedido"  ><i class="material-icons">search</i></a>
+          </div>
+        
+</div>
+ <div class="input-field col s12 l8" style=" padding: 0; margin: 0; " >
+          Nombre del cliente :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-bottom:0; ">
+            <input id="nombrearticuloclientepedido" value="Mostrador" type="date" class="validate">
+ 
+        </div> 
+        </div> 
+
+        </div>
+           <div class="row center oserv card" style="background-color: #e0f2f1; padding:20px;  " >
+                 
+             
+
+                
+
+       <div class="input-field col s12 l3" style=" padding: 0; margin: 0; " >
+          Fecha :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-bottom:0; ">
+            <input id="fechaActualpedido" disabled type="date" class="validate">
+ 
+        </div> 
+        </div> 
+
+
+        <div class="input-field col s12 l3" style="   padding: 0; margin: 0; ">
+          Folio :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input  id="folioarticulopedido" type="text" class="validate">
+           
+          </div>
+        
+
+        </div>
+
+
+        <div class="input-field col s12 l3" style="   padding: 0; margin: 0; ">
+          Codigo :
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input id="codigoarticulopedido" disabled type="text" class="validate">
+           
+          </div>
+        
+
+        </div>
+
+        <div class="input-field col s12 l3" style="  padding: 0; margin: 0;">
+          Descrip.:
+          <div class="input-field inline" style=" padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input disabled id="descripcionarticulopedido" type="text" class="validate">
+           
+          </div>
+        </div>
+
+        <div class="input-field col s12 l3" style="padding: 0; margin: 0;  ">
+          Precio :
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input  disabled type="text" id="precioarticulopedido" class="validate">
+           
+          </div>
+        </div>
+
+         
+        <div class="input-field col s12 l3" style="padding: 0; margin: 0; ">
+          Existencia :
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input disabled  type="text" id="existenciaarticulopedido" class="validate">
+          </div>
+        </div>
+
+          <div class="input-field col s12 l3" style="padding: 0; margin: 0; ">
+          Cantidad :
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px; background-color: #def; border-bottom:0; ">
+            <input id="cantidadarticulopedido" type="text" class="validate">
+          </div>
+        </div>
+
+        <div class="input-field col s12 l3" style="padding: 0; margin: 0; ">
+          Total:
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  border-bottom:0; ">
+            <input disabled  type="text" class="validate"  >
+            <label id="totalarticulopedido"></label>
+          </div>
+        </div>
+
+        
+<a class="btn-floating halfway-fab waves-effect waves-light red" onclick="guardarpedido();"><i class="material-icons">add</i></a>
+        
+
+
+ 
+
+<br>
+          
+            
+           
+             
+          
+           </div>
+ 
+ 
+           <div class="input-field col s12 l12" style="padding: 0; margin: 0;  border-top-width: 10px;">
+            <div class="row"> 
+        <div class="input-field col s6 l6" >  Contenido:</div> 
+          <div class="input-field col s6 l6" style="padding: 0; margin: 0; ">
+          Total:
+          <div class="input-field inline" style="padding: 0; margin: 0; border-radius: 5px;  font-size: 20px; border-bottom:0; ">
+            $
+            <spam id="totalventapedido" style="font-size: 20px"  >0.00</spam>
+          </div>
+        </div>
+</div>  
+        <br>
+          <br><br> <div  class="col l12 s12" >
+                      <table class="striped responsive-table "   >
+                                  <tbody id="tablaarticulosdospedido">
+                          
+                        
+                                    <tr class="card" id="rem" style="font-size:10px ">
+                                        <th>Codigo</th>
+                                        <th>Descripción</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Publico</th>
+                                      
+                                         <th>Total</th>
+                                        <th>Opcion</th>
+                                       
+                                    </tr>   
+                                    </tbody>         
+                                </table>
+
+                  </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+<a   class="modal-action modal-close waves-effect waves-green btn red" id="btnaddpedido">Guardar</a>
+         
+        </div>
+        <br><br><br>
+    </div>
+       <!-- Modal Mod   005 -->
+
+    <!-- Modal Mod  OS -->
+    <div id="modal2" class="modal modal-fixed-footer">
+        <h5 class="center">Editar orden de servicio</h5>
+     <div class="progress " id="eprogresbar"  style="display: block;">
+       <div class="indeterminate"></div>
+       </div>
+       
+        <div class="modal-content">
+           <div class="row center oserv card" style="padding: 20px;">
+              <div class="col s12 m12 l4 ">
+                         <h6>Datos de OS</h6>
+                  <div class="input-field col s6">
+                      <p>Id :</p>
+                  </div>
+                
+                  <div class="input-field col s6">
+                    <input id="eid" type="text" name="id" readonly disabled>
+                  </div>
+
+                   <div class="input-field col s6">
+                      <p>Fecha :</p>
+                  </div>
+                
+                  <div class="input-field col s6">
+                    <input id="efecha" type="date" name="fecha" >
+                  </div>
+
+
+                   <div class="input-field col s6">
+                      <p>Sucursal :</p>
+                  </div>
+                
+                  <div class="input-field col s6">
+                    <select id="esucursal">
+                      <option>Seleccionar</option>
+                    </select>
+                    <label>Seleccionar</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                      <p>Folio OS :</p>
+                  </div>
+
+                  <div class="input-field col s6">
+                      <input name="folio" id="efolio" type="text" readonly disabled>
+                  </div>
+                  <div class="input-field col s6">
+                      <p>Representante :</p>
+                  </div>
+                
+                  <div class="input-field col s6">
+                    <input id="erepresentante" type="text" name="rep">
+                  </div>
+                  <br><br>
+
+             </div>
+            
+             <div class="col s12 m12 l4 oserv">
+                   <h6>Especificaciones</h6><br>
+                 <div class="input-field col s6">
+                     <p>Aerolinea :</p>
+                 </div>
+
+                 <div class="input-field col s6">
+                     <select id="eaerolinea"  >
+                          <option>Seleccionar</option>
+                     </select>
+                     <label>Seleccionar</label>
+                 </div>
+
+               <div class="input-field col s6">
+                 <p>Vuelo :</p>
+               </div>
+
+               <div class="input-field col s6">
+                   <input id="evuelo" type="text" name="rep">
+               </div>
+               <div class="input-field col s6">
+                     <p>Contingencia :</p>
+               </div>
+
+               <div class="input-field col s6">
+                   <select id="econtingencia">
+                       <option>Seleccionar</option>
+                       
+                   </select>
+                   <label>Seleccionar</label>
+               </div>
+                 <div class="input-field col s6">
+                     <p>Estatus :</p>
+                 </div>
+                 <div class="input-field col s6" id="estatus" style="background-color: gray; color: whitesmoke;">
+                     <p >Sin estatus</p>
+                 </div>
+                 <br>
+             <br>
+             </div>
+             
+               <div class="col s12 m12 l4 ">
+                    <h6>Pasajeros</h6><br>
+                    <div class="input-field col s6">
+                        <p>Adultos :</p>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="eadultos" type="number" name="eadulto" value="0" onchange="mostrar();" min="0" >
+                    </div>
+                    <div class="input-field col s6">
+                        <p>Niños :</p>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="eninos" type="number" name="enino" value="0" onchange="mostrar()" min="0">
+                    </div>
+                    <div class="input-field col s6">
+                        <p>Total :</p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p id="epax"></p>
+                         
+                    </div>
+
+                </div>
+           </div>
+ 
+
+            <div class="row card"  style="padding: 20px; "   >
+                            <h5 class="center">Detalle</h5> 
+                            <div class="col s12 m12 green lighten-2 center" style="padding: 20px; border-radius: 10px;">
+                               <i class="material-icons white-text center">report_problem</i><br>
+                                <span class="white-text"  >Para agregar un detalle almenos debe de contener 1 noche y 1 adulto
+                                </span>
+                            </div>
+                            <hr style="width: .1px; "><br>
+                        <div class="col s12 m12 l6 z-depth-2" >
+                            
+                            <div class="input-field col s12" id="formdetalle"><br>
+                                <div class="input-field col s6 l4">
+                                    <div class="input-field col s12 l12">
+                                        <h6>Solicitud</h6>
+                                    </div>
+                                    <div class="input-field col s12 l10">
+                                         <input id="esolicitud" type="number" name="numerodesolicitud"   min="0"  readonly disabled="true">
+                                    </div>
+
+                                </div>
+                                <div class="input-field col s6 l4">
+                                    <div class="input-field col s12 ll2">
+                                        <h6>Noches</h6>
+                                    </div>
+                                    <div class="input-field col s12 ll0">
+                                        <input id="enoches" type="number" name="noches" value="0"  min="0" >
+                                    </div>
+                                </div>
+                                <div class="input-field col s6 l4">
+                                    <div class="input-field col s12 l12">
+                                        <h6>Adultos</h6>
+                                    </div>
+                                    <div class="input-field col s12 l10">
+                                        <input id="eadulto" type="number" name="adultos" value="0"  min="0" >
+                                    </div>
+                                </div>
+                                <div class="input-field col s6 l4">
+                                    <div class="input-field col s12 l12">
+                                        <h6>Menores</h6>
+                                    </div>
+                                    <div class="input-field col  l10">
+                                        <input id="emenor" type="number" name="menores" value="0"  min="0" >
+                                    </div>
+                                </div>
+                                <div class="input-field col s6 l4">
+                                    <div class="input-field col s12 l12">
+                                        <h6>Hotel</h6>
+                                    </div>
+                                    <div class="input-field col s12 l10">
+                                        <select id="ehotel">
+                                            <option>Selec</option>
+                                            
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="input-field col s6 l4">
+                                    <div class="input-field col s12 l12">
+                                        <h6>Transportacion</h6>
+                                    </div>
+                                    <div class="input-field col s12 l10">
+                                        <select id="etransportacion">
+                                            <option >Selec</option>
+                                           
+                                        </select>
+
+                                    </div>
+                                </div>
+                              <br><a class="waves-effect waves-light btn-large" style="width: 100%;" id="adddetalle"><i class="material-icons ">add</i></a><br> <br>
+                          
+                               </div>
+
+                            </div>
+                            <div id="listadodetalle card " class=" col s12 l6 " > <br><br>
+                              <div class="row" id="pasajeros"><div class="col l3 s6" >Adultos <h6 id="dadultos">0</h6></div><div class="col l3 s6" >Niños <h6 id="dmenores">0</h6></div><div class="col l3 s6" id="tt" >Total<h6 id="dtotal">0</h6></div> <div class="col l3 s6" >Pax restantes<h6 id="epaxrestantes">0</h6></div> </div>
+
+                                <table class="striped responsive-table " id="tabla2" >
+                                    <tr class="card">
+                                        <th>Sol.</th>
+                                        <th>Noches</th>
+                                        <th>Adultos</th>
+                                        <th>Menores</th>
+                                        <th>Hotel</th>
+                                        <th>Transp</th>
+                                        <th>Opc</th>
+                                    </tr>   
+                                             
+                                </table>
+                                <tbody id="tbody">
+                                  
+                                </tbody>
+                                <br>
+                                
+                            </div>
+                          </div>
+           
+        </div>
+        <div class="modal-footer">
+          <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a><button id="btneditordendeservicio" type="button" class=" waves-effect waves-green btn-flat">Guardar</button> 
+        </div>
+    </div>
+    <!-- Modal Mod OS -->
+    <div class="row">
+      <div class="col s12 m12 l12 "  >
+      </div>
+    </div>
+  
+     
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript">
+window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+  document.getElementById('fechaActual').value=ano+"-"+mes+"-"+dia;
+   document.getElementById('fechaActualpedido').value=ano+"-"+mes+"-"+dia;
+  document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
+  document.getElementById('efecha').value=ano+"-"+mes+"-"+dia;
+}
+
+////////////////////////
+function editararticulo(e){
+          var valores = $(e).parents("tr").find("td")[1].innerHTML;
+           loadforeditOs(valores);           
+}
+////////////////////////
+function guardar(){
+    
+    var codigo = document.getElementById("codigoarticulo").value;
+    var descripcion = document.getElementById("descripcionarticulo").value;
+    var cantidad = document.getElementById("cantidadarticulo").value;
+    var precio = document.getElementById("precioarticulo").value;
+    
+    var total = document.getElementById("totalarticulo").innerHTML;
+
+    var fila="<tr><td>"+codigo+"</td><td>"+descripcion +"</td><td>"+cantidad +"</td><td>"+precio+"</td><td class='cantidadtotal'>"+total+"</td><td>"+"<a class='btn  halfway-fab waves-effect waves-light red' id='eliminar' ><i class='material-icons'>-</i></a>"+"</td></tr>";
+
+    var btn = document.createElement("TR");
+    btn.innerHTML=fila;
+    document.getElementById("tablaarticulosdos").appendChild(btn); 
+       sumar()
+}
+
+function sumar() {
+  $('#totalventa').empty()
+ var totalventa=0;
+$(".cantidadtotal").each(function(){
+  totalventa+=parseInt($(this).html()) || 0;
+});
+$('#totalventa').append(`${totalventa}`)
+
+}
+
+////////////////////////
+function guardarpedido(){
+    
+    var codigo = document.getElementById("codigoarticulopedido").value;
+    var descripcion = document.getElementById("descripcionarticulopedido").value;
+    var cantidad = document.getElementById("cantidadarticulopedido").value;
+    var precio = document.getElementById("precioarticulopedido").value;
+    
+    var total = document.getElementById("totalarticulopedido").innerHTML;
+
+    var fila="<tr><td>"+codigo+"</td><td>"+descripcion +"</td><td>"+cantidad +"</td><td>"+precio+"</td><td class='cantidadtotalpedido'>"+total+"</td><td>"+"<a class='btn  halfway-fab waves-effect waves-light red' id='eliminarpedido' ><i class='material-icons'>-</i></a>"+"</td></tr>";
+
+    var btn = document.createElement("TR");
+    btn.innerHTML=fila;
+    document.getElementById("tablaarticulosdospedido").appendChild(btn); 
+       sumarpedido()
+}
+
+function sumarpedido() {
+  $('#totalventapedido').empty()
+ var totalventa=0;
+$(".cantidadtotalpedido").each(function(){
+  totalventa+=parseInt($(this).html()) || 0;
+});
+$('#totalventapedido').append(`${totalventa}`)
+
+} 
+//////////////////////////////////
+    var busqueda = document.getElementById('buscar');
+    var table = document.getElementById("tablaarticulos").tBodies[0];
+
+    buscaTabla = function(){
+      texto = busqueda.value.toLowerCase();
+      var r=1;
+      while(row = table.rows[r++])
+      {
+        if ( row.innerText.toLowerCase().indexOf(texto) !== -1 )
+          row.style.display = null;
+        else
+          row.style.display = 'none';
+      }
+    }
+
+    busqueda.addEventListener('keyup', buscaTabla);
+
+
+
+////////////
+ 
+ 
+
+////////////////////////////////
+         function mostrar(){
+             $('#pax').empty()
+             $('#paxrestantes').empty()
+             $('#epax').empty()
+             $('#epaxrestantes').empty()
+             var combo = document.getElementById("adultos").value;
+             var combox = document.getElementById("ninos").value;
+              var ecombo = document.getElementById("eadultos").value;
+             var ecombox = document.getElementById("eninos").value;
+             if (combox===null||combox===""){
+                 combox='0';
+             }
+             if (combo==null || combo===""){
+                 combo='0';
+             }
+               if (ecombox===null||ecombox===""){
+                 ecombox='0';
+             }
+             if (ecombo==null || ecombo===""){
+                 ecombo='0';
+             }
+            var total=parseInt(combo)+parseInt(combox);
+            var etotal=parseInt(ecombo)+parseInt(ecombox);
+             $('#pax').append(`${total}`)
+             $('#paxrestantes').append(`${total}`)
+             $('#epax').append(`${etotal}`)
+             $('#epaxrestantes').append(`${etotal}`)
+                 
+                 }
+          $(document).ready(function(){
+             $(".button-collapse").sideNav();
+             $('.modal').modal({
+                      dismissible:true,
+                      opacity:.1,
+                      inDuration:300,
+                      outDuration:200,
+                      startingTop:'4%',
+                      endingTop:'10%'
+                   });
+
+             $('select').material_select();
+             $('ul.tabs').tabs('select_tab', 'tab_id');
+           
+          });
+   </script>
+  </body>
+</html>
+   
+  
