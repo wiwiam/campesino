@@ -1313,7 +1313,7 @@ $('#totalventapedido').append(`${totalventa}`)
   var busqueda = document.getElementById('buscararticulopedido');
     var table = document.getElementById("tablaarticulospedido").tBodies[0];
 
-    buscaTabla = function(){
+    buscaTablas = function(){
       texto = busqueda.value.toLowerCase();
       var r=1;
       while(row = table.rows[r++])
@@ -1325,7 +1325,7 @@ $('#totalventapedido').append(`${totalventa}`)
       }
     }
 
-    busqueda.addEventListener('keyup', buscaTabla);
+    busqueda.addEventListener('keyup', buscaTablas);
 
 
 
