@@ -1,0 +1,135 @@
+.ir-arriba {
+	display:none;
+	padding:15px;
+	background:#024959;
+	font-size:15px;
+	color:#fff;
+	cursor:pointer;
+	position: fixed;
+	bottom:20px;
+	left:20px;
+}
+ 
+#titulo{
+  font-style: bold;
+}
+#login{
+	 padding-left: 250px;
+}
+#items{
+	margin: 20px;
+}
+#contenido{
+	font-size: 10px;
+}
+.selected { background-color: blue; } 
+
+.card{
+	font-size: 13px	;
+	padding: 10px;
+}
+.oserv{
+	font-size: 11px;
+}
+#tabladetalle{
+	font-size: small;
+	border: 0;
+}
+#modal1{
+	width:60%;
+	height: 70%;
+}
+#modal001{
+	width:45%;
+	height:90%;
+}
+#modal22{
+	width:45%;
+	height:60%;
+}
+#modal002{
+	width:60%;
+	height:90%;
+}
+#modal004{
+	width:45%;
+	height:90%;
+}
+#modal006{
+	width:35%;
+	height:90%;
+}
+#modal003{
+	width:95%;
+	height:90%;
+	margin-top: 0px;
+	padding-top: 0px;
+
+}
+@media (max-width: 900px) {
+#modal001,#modal22{
+   width:100%;
+	height:90%;
+  }
+  #modal006{
+	width:100%;
+	height:90%;
+}
+  #modal002{
+   width:100%;
+	height:90%;
+  }
+   #modal003{
+   top: 0px;
+  }
+  #modal004{
+	width:100%;
+	height:90%;
+}
+}
+@media (max-width: 600px) {
+	 table {
+       display: block;
+       overflow-x: auto;
+     }
+     
+#modal001{
+   width:100%;
+	height:90%;
+  }
+  #modal006{
+	width:100%;
+	height:90%;
+}
+  #modal002{
+   width:100%;
+	height:90%;
+  }
+   #modal003{
+   top: 0px;
+  }
+  
+}
+
+#modal2{
+	width:90%;
+	height: 80%;
+}
+@media (max-width: 600px) {
+#modal2{
+   width:100%;
+	height:90%;
+  }
+}
+ 
+@media (max-width: 600px) {
+#login{
+  padding-left: 0px;
+  }
+}
+ tr th{
+margin:9px ; padding: 9px;
+}
+tr td{
+margin:10px; padding: 10px;
+}
