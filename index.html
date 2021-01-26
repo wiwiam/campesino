@@ -1,0 +1,95 @@
+﻿  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+    <title>Dsitribuidor Campesino</title>  
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-auth.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-firestore.js"></script>
+    <script>
+      //window.oncontextmenu = function() {
+         // return false;
+       //   }
+      // Initialize Firebase
+     var firebaseConfig = {
+    apiKey: "AIzaSyCJhyv45N6HqG1IAiuASaJ3K2dXW2HVck0",
+    authDomain: "campesino-8c8f1.firebaseapp.com",
+    databaseURL: "https://campesino-8c8f1.firebaseio.com",
+    projectId: "campesino-8c8f1",
+    storageBucket: "campesino-8c8f1.appspot.com",
+    messagingSenderId: "894984825322",
+    appId: "1:894984825322:web:ee12aab9e6bac33864ea93",
+    measurementId: "G-MDTJ6LFW2V"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    </script>
+    </head>
+
+
+    <body style=" background-color: #fb8c00" >
+       <script src="js/login.js"></script>
+       <script src="js/observerind.js"></script>
+ 
+        
+   <!--login -->      <br>
+   <div class="container center"  >
+     <div class="row " id="login" >
+    <br><br><br><br><br><br>
+      <div class="col l8 s12 z-depth-5 white" id=""><div class="progress" id="progresbar" style="display: none;">
+         <div class="indeterminate green"></div>
+      </div>
+    <form class="col s12 ">
+      <div class="row " id="items">
+    
+        <img src="img/logo.jpg" class="responsive-img">
+        <div class="input-field col l12 s12">
+          <i class="material-icons prefix" style=" color: #965205;">email</i>
+          <input id="usuario" type="text" class="validate" required>
+          <label >Email</label>
+        </div>
+        <div class="input-field col l12 s12">
+          <i class="material-icons prefix" style=" color: #965205;">lock</i>
+          <input id="contrasenia" type="password" class="validate" required>
+          <label>Contraseña</label>
+        </div>
+         <div class=" col l6 s12" style="text-align: left;   "  >
+          <a for="icon_telephone" style=" color: #4a2802;" href="ctuser.html">Registrarse</a>
+        </div>
+         
+         <div class="col l12 s12" >
+          <br>
+      <button class="btn-large waves-effect waves-light center" type="button" id="inic" onclick="abrir()" style="width: 100%; background-color:#4a2802 ">Login
+   
+      </button>
+        </div>
+
+      </div>
+       
+    </form>
+    </div>
+  </div>
+   </div>
+   <!--login -->     
+ 
+   
+ 
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="js/jquery.js"></script>
+       <script type="text/javascript" src="js/materialize.min.js"></script>
+       <script type="text/javascript">
+    $(document).ready(function(){
+   $(".button-collapse").sideNav();
+    });
+   </script>
+    </body>
+  </html>
+ 
